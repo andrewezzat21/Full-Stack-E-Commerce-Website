@@ -1,0 +1,41 @@
+services:
+  mysql-customer:
+    image: mysql
+    container_name: mysql-customer
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: customer_service
+    ports:
+      - "3307:3306"
+    volumes:
+      - customer_data:/var/lib/mysql
+
+  mysql-product:
+    image: mysql
+    container_name: mysql-product
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: product_service
+    ports:
+      - "3308:3306"
+    volumes:
+      - product_data:/var/lib/mysql
+
+  mysql-order:
+    image: mysql
+    container_name: mysql-order
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order_service
+    ports:
+      - "3309:3306"
+    volumes:
+      - order_data:/var/lib/mysql
+
+volumes:
+  customer_data:
+  product_data:
+  order_data:
