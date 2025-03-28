@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @Getter
 @Table(name = "category")
+@ToString
 public class Category {
 
     @Id
