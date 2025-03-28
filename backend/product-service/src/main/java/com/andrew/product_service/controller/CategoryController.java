@@ -3,6 +3,7 @@ package com.andrew.product_service.controller;
 import com.andrew.product_service.dto.ApiResponse;
 import com.andrew.product_service.dto.CategoryRequest;
 import com.andrew.product_service.entity.Category;
+import com.andrew.product_service.entity.Product;
 import com.andrew.product_service.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -38,6 +39,15 @@ public class CategoryController {
                 HttpStatus.OK.value(),
                 LocalDateTime.now(),
                 category));
+    }
+
+    @GetMapping("/{categoryId}/products")
+    public ResponseEntity<ApiResponse<List<Product>>> getAllProductsByCategory(@PathVariable Long categoryId){
+        List<Product> products = service.getAllProductsByCategory(categoryId);
+        return ResponseEntity.ok(new ApiResponse<>("All Products of Category id: " + categoryId,
+                HttpStatus.OK.value(),
+                LocalDateTime.now(),
+                products));
     }
 
     @PostMapping()
