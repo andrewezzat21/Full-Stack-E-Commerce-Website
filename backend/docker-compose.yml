@@ -1,15 +1,15 @@
 services:
-  mysql-customer:
+  mysql-user:
     image: mysql
-    container_name: mysql-customer
+    container_name: mysql-user
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: customer_service
+      MYSQL_DATABASE: user_service
     ports:
       - "3307:3306"
     volumes:
-      - customer_data:/var/lib/mysql
+      - user_data:/var/lib/mysql
 
   mysql-product:
     image: mysql
@@ -36,6 +36,6 @@ services:
       - order_data:/var/lib/mysql
 
 volumes:
-  customer_data:
+  user_data:
   product_data:
   order_data:
