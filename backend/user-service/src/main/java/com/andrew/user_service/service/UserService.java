@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class UserService {
     private final UserRepository repository;
     private final UserDetailsRepository userDetailsRepository;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final RestTemplate restTemplate;
 
     public List<UserResponse> getAllUsers() {
         return repository.findAll().stream()
@@ -66,6 +68,9 @@ public class UserService {
         user.setUserDetails(userDetails);
         repository.save(user);
 
+        String orderServiceUrl = "http://localhost:8092/api/v1/carts";
+        restTemplate.postForObject(orderServiceUrl, user.getUserId(), Void.class);
+
         return new UserResponse(user.getUserId(), user.getEmail(), user.getCreatedAt());
     }
 
@@ -96,6 +101,10 @@ public class UserService {
         if(!repository.existsById(userId)){
             throw new UserNotFoundException("User not found with id: " + userId);
         }
+
+        String orderServiceUrl = "http://localhost:8092/api/v1/carts/" + userId;
+        restTemplate.delete(orderServiceUrl);
+
         repository.deleteById(userId);
     }
 }

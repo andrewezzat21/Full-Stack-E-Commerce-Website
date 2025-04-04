@@ -23,19 +23,19 @@ services:
     volumes:
       - product_data:/var/lib/mysql
 
-  mysql-order:
+  mysql-cart:
     image: mysql
-    container_name: mysql-order
+    container_name: mysql-cart
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: order_service
+      MYSQL_DATABASE: cart_service
     ports:
       - "3309:3306"
     volumes:
-      - order_data:/var/lib/mysql
+      - cart_data:/var/lib/mysql
 
 volumes:
   user_data:
   product_data:
-  order_data:
+  cart_data:
