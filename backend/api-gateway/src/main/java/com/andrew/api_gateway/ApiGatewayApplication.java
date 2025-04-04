@@ -1,15 +1,15 @@
-package com.andrew.cart_service;
+package com.andrew.api_gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
 @EnableDiscoveryClient
-public class CartServiceApplication {
+@SpringBootApplication
+public class ApiGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CartServiceApplication.class, args);
+		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
 }
